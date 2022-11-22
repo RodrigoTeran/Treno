@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Current Pull Request
+        uses: 8BitJonny/gh-get-current-pr@1.0.1
+        id: pr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          filterOutClosed: true
+
+      - id: file_changes
+        name: File Changes
+        uses: trilom/file-changes-action@v1.2.4
+        with:
+          prNumber: ${{ steps.pr.outputs.number }}
+          pushBefore: ""
+          pushAfter: ""
+
+      - name: Ouput File Changes
+        run: echo '${{ steps.file_changes.outputs.files }}'
+
+      - name: Run client "build"
+        if: contains(steps.file_changes.outputs.files , '"client/')
+        working-directory: ./client
+        run: |
+          npm ci
+          npm run build
+
+      - name: Run server "build"
+        if: contains(steps.file_changes.outputs.files , '"server/')
+        working-directory: ./server
+        run: |
+          npm ci
+          npm run build
+
+      - name: Run cdn "build"
+        if: contains(steps.file_changes.outputs.files , '"cdn/')
+        working-directory: ./cdn
+        run: |
+          npm ci
+          npm run build
