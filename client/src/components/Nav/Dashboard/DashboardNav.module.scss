@@ -1,0 +1,33 @@
+.nav {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: var(--light-000);
+
+    &_title {
+        font-weight: bold;
+        font-size: 1.75rem;
+    }
+
+    &_btn {
+        background-color: var(--cyan-500);
+        color: var(--light-000);
+        font-weight: bold;
+        border-radius: 10000px; // A max
+        padding: 8px 23px;
+        transition: background-color ease-out 300ms;
+        text-align: center;
+
+        @media (hover:hover) and (pointer:fine) {
+            &:hover {
+                background-color: var(--cyan-600);
+            }
+        }
+    }
+}
