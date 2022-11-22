@@ -1,0 +1,119 @@
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --red-100: #e9adad;
+    --red-200: #fc5858;
+    --red-300: #d12828;
+    --red-400: #5c1d05;
+
+    --green-100: #a6d6aa;
+    --green-200: #26572a;
+
+    --cyan-100: #D7F9FD;
+    --cyan-200: #A5F3FC;
+    --cyan-300: #67E8F9;
+    --cyan-400: #22D3EE;
+    --cyan-500: #06B6D4;
+    --cyan-600: #0891B2;
+    --cyan-700: #0E7490;
+    --cyan-800: #155E75;
+    --cyan-900: #164E63;
+
+    --sky-100: #E3F1FD;
+    --sky-200: #C2E5FA;
+    --sky-300: #90D2F8;
+    --sky-400: #60BBF3;
+    --sky-500: #49A4E3;
+    --sky-600: #3783C2;
+    --sky-700: #2B689C;
+    --sky-800: #255981;
+    --sky-900: #204A6B;
+
+    --light-000: #FFFFFF;
+    --light-100: #F2F5F9;
+    --light-200: #E3E8EF;
+    --light-300: #CDD5E0;
+    --light-400: #97A3B6;
+    --light-500: #677489;
+    --light-600: #4A5567;
+    --light-700: #364153;
+    --light-800: #20293A;
+    --light-900: #111729;
+
+    --dark-000: #000000;
+    --dark-100: #F3F3F5;
+    --dark-200: #E5E7EB;
+    --dark-300: #D2D5DA;
+    --dark-400: #9DA3AE;
+    --dark-500: #6C727F;
+    --dark-600: #4D5562;
+    --dark-700: #394150;
+    --dark-800: #242830;
+    --dark-900: #1D1E21;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    ::-webkit-scrollbar {
+        width: 0.75em;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--light-300);
+
+        &:hover {
+            background-color: var(--light-400);
+        }
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background-color: var(--light-200);
+    }
+}
+
+::selection {
+    background-color: var(--cyan-400);
+    color: var(--light-000);
+}
+
+html {
+    min-height: 100%;
+    width: 100vw;
+    position: relative;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--light-000);
+    color: var(--dark-000);
+}
+
+input,
+button {
+    outline: none;
+    border-style: none;
+}
+
+button {
+    cursor: pointer;
+}
