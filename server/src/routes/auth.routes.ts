@@ -1,22 +1,15 @@
 // prev -> auth/
 
 import express from "express";
-import { RESPONSE_DATA } from "../types/routes.types";
 const router = express.Router();
 
-export interface GET_USER_DATA {
-    id: string;
-    name: string
-}
+// Controllers
+import { logIn } from "../controllers/auth/index";
 
-router.get("/get-user", (req, res) => {
-    const response: RESPONSE_DATA = {
-        msg: "Todo bien pa",
-        data: {},
-        isAuth: false
-    }
+// Middlewares
+import { authenticate } from "../middlewares/auth.middleware";
 
-    res.json(response);
-});
+router.put("/log-in", logIn);
+router.get("/get-user", authenticate);
 
 export default router;

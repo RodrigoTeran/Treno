@@ -12,7 +12,7 @@ export interface GET_USER_DATA {
 
 export const login: REQUEST = {
     url: `${process.env.REACT_APP_API_URI}/auth/login`,
-    method: 'post',
+    method: "put",
 };
 
 export interface LOGIN_BODY {

@@ -1,5 +1,7 @@
 export interface RESPONSE_DATA {
-    msg: string;
-    data: any;
     isAuth: boolean;
+    message: string;
+    readMsg: boolean;
+    typeMsg: "success" | "danger" | "info";
+    data: any;
 }
