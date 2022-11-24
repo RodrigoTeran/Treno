@@ -6,8 +6,10 @@ export const getUser: REQUEST = {
 };
 
 export interface GET_USER_DATA {
-    id: string;
-    name: string
+    user: {
+        id: string;
+        username: string
+    }
 }
 
 export const login: REQUEST = {

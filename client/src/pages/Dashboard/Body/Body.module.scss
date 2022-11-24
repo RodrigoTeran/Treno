@@ -1,0 +1,23 @@
+.body {
+    background-color: var(--light-000);
+    width: calc(100vw - 250px);
+    padding: 26px;
+    height: calc(100vh - 80px);
+    
+    position: fixed;
+    top: 80px;
+    left: 250px;
+    transition: width ease-out 300ms, left ease-out 300ms;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @media screen and (max-width: 1230px) {
+        left: 0;
+        width: 100vw;
+    }
+
+    &_open {
+        left: 250px;
+    }
+}

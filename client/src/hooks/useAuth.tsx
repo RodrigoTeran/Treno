@@ -43,8 +43,8 @@ export const useAuth: USE_AUTH = ({ setUser, setIsAuth }) => {
 
                 if (setUser != null)
                     setUser({
-                        id: userData.id,
-                        name: userData.name
+                        id: userData.user.id,
+                        name: userData.user.username
                     });
             }
 
