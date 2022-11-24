@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./Pill.module.scss";
+import styles from "./Block.module.scss";
 
 interface Props {
     family: "cyan-500" | "light-000",
@@ -9,7 +9,7 @@ interface Props {
     role?: string
 }
 
-const Pill: React.FunctionComponent<Props> = ({
+const Block: React.FunctionComponent<Props> = ({
     family,
     text,
     callback,
@@ -21,4 +21,4 @@ const Pill: React.FunctionComponent<Props> = ({
     );
 };
 
-export default Pill;
+export default Block;

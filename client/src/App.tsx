@@ -4,19 +4,12 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from "react-helmet-async";
+import AnimatedRoutes from './components/Routes/AnimatedRoutes';
 
 // Types
 import { USER } from './types/user.types';
-
-// Pages
-import Home from './pages/Home/Home';
-import LogIn from './pages/LogIn/LogIn';
-import Dashboard from './pages/Dashboard/Dashboard';
-
-// Layout
-import Layout from './components/Layout/Layout';
 
 // Auth
 import Auth from './components/Auth/Auth';
@@ -54,15 +47,7 @@ const App: React.FunctionComponent = (): JSX.Element => {
       >
         <BrowserRouter>
           <Auth />
-          <Routes>
-            <Route path="/" element={<Layout isDashboard={false} />}>
-              <Route index element={<Home />} />
-              <Route path="iniciar-sesion" element={<LogIn />} />
-            </Route>
-            <Route path="aplicacion" element={<Layout isDashboard />}>
-              <Route index element={<Dashboard />} />
-            </Route>
-          </Routes>
+          <AnimatedRoutes />
         </BrowserRouter>
       </AppContext.Provider>
     </HelmetProvider>

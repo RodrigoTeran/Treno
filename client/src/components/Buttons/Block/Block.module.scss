@@ -1,0 +1,33 @@
+.btn {
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 30px;
+
+    transition: background-color ease-out 300ms, color ease-out 300ms;
+}
+
+.cyan-500 {
+    background-color: var(--cyan-500);
+    color: var(--light-000);
+    border: 2px solid var(--cyan-500);
+
+    @media (hover:hover) and (pointer:fine) {
+        &:hover {
+            background-color: var(--light-000);
+            color: var(--cyan-500);
+        }
+    }
+}
+
+.light-000 {
+    background-color: var(--light-000);
+    color: var(--cyan-500);
+    border: 2px solid var(--cyan-500);
+
+    @media (hover:hover) and (pointer:fine) {
+        &:hover {
+            background-color: var(--cyan-500);
+            color: var(--light-000);
+        }
+    }
+}
