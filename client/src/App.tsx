@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
 } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from "react-helmet-async";
 
 // Types
 import { USER } from './types/user.types';
@@ -39,30 +40,32 @@ const App: React.FunctionComponent = (): JSX.Element => {
   const [isLoadingGetUser, setIsLoadingGetUser] = useState<boolean>(true);
 
   return (
-    <AppContext.Provider
-      value={{
-        user,
-        setUser,
-        isAuth,
-        setIsAuth,
+    <HelmetProvider>
+      <AppContext.Provider
+        value={{
+          user,
+          setUser,
+          isAuth,
+          setIsAuth,
 
-        isLoadingGetUser,
-        setIsLoadingGetUser,
-      }}
-    >
-      <BrowserRouter>
-        <Auth />
-        <Routes>
-          <Route path="/" element={<Layout isDashboard={false} />}>
-            <Route index element={<Home />} />
-            <Route path="iniciar-sesion" element={<LogIn />} />
-          </Route>
-          <Route path="aplicacion" element={<Layout isDashboard />}>
-            <Route index element={<Dashboard />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AppContext.Provider>
+          isLoadingGetUser,
+          setIsLoadingGetUser,
+        }}
+      >
+        <BrowserRouter>
+          <Auth />
+          <Routes>
+            <Route path="/" element={<Layout isDashboard={false} />}>
+              <Route index element={<Home />} />
+              <Route path="iniciar-sesion" element={<LogIn />} />
+            </Route>
+            <Route path="aplicacion" element={<Layout isDashboard />}>
+              <Route index element={<Dashboard />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AppContext.Provider>
+    </HelmetProvider>
   );
 };
 

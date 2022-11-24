@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from "./Header/Header";
+import { Helmet } from "react-helmet-async";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
   return (
     <div>
-        Landing page
+      <Helmet>
+        <title>Treno</title>
+      </Helmet>
+      <Header />
     </div>
   );
 };

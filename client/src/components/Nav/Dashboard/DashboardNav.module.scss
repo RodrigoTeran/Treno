@@ -30,4 +30,10 @@
             }
         }
     }
+
+    @media screen and (max-width: 1230px) {
+        &_btn {
+            display: none;
+        }
+    }
 }
