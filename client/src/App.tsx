@@ -36,7 +36,7 @@ interface AppValueProvider {
 const App: React.FunctionComponent = (): JSX.Element => {
   const [user, setUser] = useState<USER | null>(null);
   const [isAuth, setIsAuth] = useState<boolean>(false);
-  const [isLoadingGetUser, setIsLoadingGetUser] = useState<boolean>(false);
+  const [isLoadingGetUser, setIsLoadingGetUser] = useState<boolean>(true);
 
   return (
     <AppContext.Provider

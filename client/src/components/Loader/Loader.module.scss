@@ -1,1 +1,33 @@
-.spinner {}
+.spinner {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--light-000);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &_block {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--cyan-400);
+
+        animation-name: anima_blocks;
+        animation-timing-function: ease-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-duration: 350ms;
+        animation-delay: var(--delay);
+    }
+}
+
+@keyframes anima_blocks {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50px);
+    }
+}

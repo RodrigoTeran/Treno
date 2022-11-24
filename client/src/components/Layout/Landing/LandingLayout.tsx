@@ -5,7 +5,8 @@ import styles from './LandingLayout.module.scss';
 
 const LandingLayout: React.FunctionComponent = (): JSX.Element => {
     return (
-        <div className={styles.layout}>
+        <div
+            className={styles.layout}>
             <Nav />
             <div className={styles.layout_pad}>
                 <Outlet />

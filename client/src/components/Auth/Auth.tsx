@@ -13,10 +13,12 @@ const CardLogIn: React.FunctionComponent = (): JSX.Element => {
     });
 
     useEffect(() => {
+        console.log("fetching")
         const initialize = async (): Promise<void> => {
             await fetchUser();
         };
         void initialize();
+    // eslint-disable-next-line
     }, []);
 
     return <></>;

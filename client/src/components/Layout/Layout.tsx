@@ -4,6 +4,8 @@ import LandingLayout from './Landing/LandingLayout';
 import { AppContext } from '../../App';
 import styles from './Layout.module.scss';
 import Spinner from "../Loader/Loader";
+import { AnimatePresence, motion } from "framer-motion";
+import { fadeExitVariants, fadeVariants } from "../../animations/fade";
 
 interface Props {
   isDashboard: boolean;
@@ -15,16 +17,30 @@ const Layout: React.FunctionComponent<Props> = ({
   const { isLoadingGetUser } = useContext(AppContext);
 
   return (
-    <>
-      {isLoadingGetUser === true && (
-        <div className={styles.spin}>
+    <AnimatePresence mode='wait'>
+      {isLoadingGetUser === true ? (
+        <motion.div
+          exit="exit"
+          initial="hidden"
+          animate="visible"
+          variants={fadeExitVariants(1.5)}
+          key={"loader"}
+          className={styles.spin}>
           <Spinner />
-        </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          exit="exit"
+          initial="hidden"
+          animate="visible"
+          variants={fadeVariants}
+          className={styles.layout}>
+          {isLoadingGetUser === false && isDashboard && <DashboardLayout />}
+          {isLoadingGetUser === false && !isDashboard && <LandingLayout />}
+        </motion.div>
       )}
 
-      {isLoadingGetUser === false && isDashboard && <DashboardLayout />}
-      {isLoadingGetUser === false && !isDashboard && <LandingLayout />}
-    </>
+    </AnimatePresence>
   );
 };
 
