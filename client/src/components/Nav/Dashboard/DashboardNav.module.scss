@@ -138,3 +138,15 @@
         display: flex;
     }
 }
+
+.drop {
+    width: 150px !important;
+    right: 0 !important;
+    top: 20px !important;
+    left: auto !important;
+}
+
+.dropdown {
+    border: none !important;
+    padding: 0 !important;
+}

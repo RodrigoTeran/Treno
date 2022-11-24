@@ -23,6 +23,6 @@ export interface LOGIN_BODY {
 }
 
 export const logout: REQUEST = {
-    url: `${process.env.REACT_APP_API_URI}/auth/logout`,
+    url: `${process.env.REACT_APP_API_URI}/auth/log-out`,
     method: 'post',
 };

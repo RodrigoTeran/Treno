@@ -78,10 +78,37 @@ export const getUser = (req: Request, res: Response) => {
         let userData: Partial<USER> = req.user;
         delete userData["pwd"];
         delete userData["created_at"];
-        
+
         response.data = {
             user: userData
         };
+
+        res.status(200).json(response);
+
+    } catch (error) {
+        console.error(error);
+        response.isAuth = false;
+        response.message = "Error del servidor."
+        response.readMsg = true;
+        response.typeMsg = "danger";
+        res.status(500).json(response);
+    };
+}
+export const logOut = (_: Request, res: Response) => {
+    const response: RESPONSE_DATA = {
+        isAuth: false,
+        message: "",
+        readMsg: false,
+        typeMsg: "success",
+        data: null
+    };
+    try {
+        res.cookie("jwt", "", {
+            httpOnly: true,
+            maxAge: 0,
+            secure: true,
+            sameSite: "none"
+        });
         
         res.status(200).json(response);
 

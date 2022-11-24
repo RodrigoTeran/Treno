@@ -3,6 +3,11 @@ import styles from './DashboardNav.module.scss';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../../App';
 import { DashboardLayoutContext } from "../../Layout/Dashboard/DashboardLayout";
+import DropDown from "../../Form/Dropdown/Dropdown";
+import { fetcher, RESPONSE } from "../../../utils/fetcher";
+import { logout as logoutRoute } from "../../../routes/auth.routes";
+import { RESPONSE_DATA } from "../../../routes/index.routes";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Bell = () => {
   return (
@@ -20,17 +25,43 @@ const Home = () => {
   )
 }
 
-const ChevronDown = () => {
-  return (
-    <svg viewBox="0 0 12 7" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5.39485 6.7437C5.72955 7.08543 6.27312 7.08543 6.60783 6.7437L11.749 1.49473C12.0837 1.153 12.0837 0.598028 11.749 0.256298C11.4143 -0.0854325 10.8707 -0.0854325 10.536 0.256298L6 4.88742L1.46402 0.259031C1.12931 -0.0826989 0.585741 -0.0826989 0.251032 0.259031C-0.0836773 0.600761 -0.0836773 1.15573 0.251032 1.49746L5.39217 6.74644L5.39485 6.7437Z" />
-    </svg>
-  )
-}
-
 const DashboardNav: React.FunctionComponent = (): JSX.Element => {
-  const { user } = useContext(AppContext);
+  const { user, setMessages, setUser, setIsAuth } = useContext(AppContext);
   const { hamburgerOpen, setHamburgerOpen } = useContext(DashboardLayoutContext);
+
+  const dropOptions = ["Salir sesión"];
+
+  const fetchUser = useAuth({
+    setUser, setIsAuth
+  })
+
+  const handler = (value: string) => {
+    if (value === "Salir sesión") {
+      logout();
+    }
+  }
+  const logout = (): void => {
+    const doFetch = async (): Promise<void> => {
+      const res: RESPONSE = await fetcher[logoutRoute.method]({ uri: logoutRoute.url });
+      const resData: RESPONSE_DATA = res.data;
+      if (resData.readMsg && setMessages) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: resData.typeMsg,
+            msg: resData.message,
+            index: new Date().getTime() + prev.length
+          }
+        ])
+
+        return;
+      }
+
+      // Refetch
+      fetchUser();
+    }
+    void doFetch();
+  }
 
   return (
     <nav className={styles.nav}>
@@ -48,13 +79,18 @@ const DashboardNav: React.FunctionComponent = (): JSX.Element => {
         </div>
         <div className={styles.nav_controllers_profile}>
           <div className={styles.nav_controllers_profile_img}>
-
           </div>
           <div className={styles.nav_controllers_profile_name}>
             {user?.name}
           </div>
           <div className={styles.nav_controllers_profile_drop}>
-            <ChevronDown />
+            <DropDown
+              placeholder=""
+              arrayValues={dropOptions}
+              classNameInfo={styles.drop}
+              className={styles.dropdown}
+              onClickHandler={handler}
+            />
           </div>
         </div>
       </div>

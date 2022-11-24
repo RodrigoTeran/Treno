@@ -1,0 +1,54 @@
+.drop {
+    position: relative;
+    background-color: var(--light-000);
+    border: 1px solid var(--light-300);
+    border-radius: 3px;
+    color: var(--light-400);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    &::selection {
+      background-color: transparent !important;
+    }
+    &_p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 1.3rem;
+      max-width: calc(100% - 40px);
+      &::selection {
+        background-color: transparent !important;
+      }
+    }
+    svg {
+      fill: var(--light-400);
+      height: 12px;
+    }
+  }
+  .info {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    border: 1px solid var(--light-300);
+    border-radius: 0 0 3px 3px;
+    z-index: 99;
+    background-color: var(--light-000);
+    max-height: 200px;
+    overflow-y: auto;
+    div {
+      padding: 15px;
+      color: var(--light-800);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background-color: var(--light-300);
+        }
+      }
+    }
+  }
+  .first {
+    color: var(--light-800);
+  }
+  
