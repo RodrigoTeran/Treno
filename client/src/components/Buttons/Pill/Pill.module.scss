@@ -4,6 +4,18 @@
     padding: 10px 30px;
 
     transition: background-color ease-out 300ms, color ease-out 300ms;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        animation-name: anima_loader;
+        animation-duration: 600ms;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+
+        transition: fill ease-out 300ms;
+    }
 }
 
 .cyan-500 {
@@ -11,10 +23,18 @@
     color: var(--light-000);
     border: 2px solid var(--cyan-500);
 
+    svg {
+        fill: var(--light-000);
+    }
+
     @media (hover:hover) and (pointer:fine) {
         &:hover {
             background-color: var(--light-000);
             color: var(--cyan-500);
+
+            svg {
+                fill: var(--cyan-500);
+            }
         }
     }
 }
@@ -24,10 +44,29 @@
     color: var(--cyan-500);
     border: 2px solid var(--cyan-500);
 
+    svg {
+        fill: var(--cyan-500);
+    }
+
     @media (hover:hover) and (pointer:fine) {
         &:hover {
             background-color: var(--cyan-500);
             color: var(--light-000);
+
+            svg {
+                fill: var(--light-000);
+            }
         }
     }
+}
+
+@keyframes anima_loader {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+
 }

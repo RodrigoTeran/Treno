@@ -11,7 +11,7 @@ export interface GET_USER_DATA {
 }
 
 export const login: REQUEST = {
-    url: `${process.env.REACT_APP_API_URI}/auth/login`,
+    url: `${process.env.REACT_APP_API_URI}/auth/log-in`,
     method: "put",
 };
 

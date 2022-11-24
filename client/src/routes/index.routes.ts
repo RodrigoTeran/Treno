@@ -1,9 +1,12 @@
 import { METHODS } from '../utils/fetcher';
+import { TYPE_MSG } from "../types/messages.types";
 
 export interface RESPONSE_DATA {
-    msg: string;
-    data: any;
     isAuth: boolean;
+    message: string;
+    readMsg: boolean;
+    typeMsg: TYPE_MSG;
+    data: any;
 }
 
 export interface REQUEST {

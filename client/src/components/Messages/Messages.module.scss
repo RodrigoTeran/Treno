@@ -1,0 +1,64 @@
+.msgs {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+.msg {
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 300px;
+    padding: 10px;
+}
+
+.svg,
+.cross {
+    width: 15px;
+    height: 15px;
+}
+
+.cross {
+    cursor: pointer;
+}
+
+.text {
+    margin: 0 10px;
+    word-wrap: break-word;
+    width: calc(300px - 20px - 20px - 10px - 20px);
+    text-align: left;
+}
+
+.success {
+    background-color: var(--green-100);
+    color: var(--green-200);
+
+    svg {
+        fill: var(--green-200);
+    }
+}
+
+.danger {
+    background-color: var(--red-100);
+    color: var(--red-300);
+
+    svg {
+        fill: var(--red-300);
+    }
+}
+
+.info {
+    background-color: var(--cyan-200);
+    color: var(--cyan-800);
+
+    svg {
+        fill: var(--cyan-800);
+    }
+}

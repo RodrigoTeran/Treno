@@ -36,6 +36,10 @@
             display: none;
         }
     }
+
+    @media screen and (max-width: 360px) {
+        padding: 0 20px;
+    }
 }
 
 .hamburger {
@@ -79,6 +83,10 @@
     @media screen and (max-width: 1230px) {
         display: flex;
     }
+
+    @media screen and (max-width: 360px) {
+        right: 20px;
+    }
 }
 
 .menu {
@@ -112,5 +120,13 @@
 
     @media screen and (max-width: 1230px) {
         display: flex;
+    }
+
+    @media screen and (max-width: 360px) {
+        clip-path: circle(0 at calc(100% - 40px) 40px);
+
+        &_open {
+            clip-path: circle(140% at calc(100% - 40px) 40px);
+        }
     }
 }

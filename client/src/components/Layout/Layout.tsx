@@ -6,6 +6,7 @@ import styles from './Layout.module.scss';
 import Spinner from "../Loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeExitVariants, fadeVariants } from "../../animations/fade";
+import MessagesComponent from "../Messages/Messages";
 
 interface Props {
   isDashboard: boolean;
@@ -37,6 +38,9 @@ const Layout: React.FunctionComponent<Props> = ({
           className={styles.layout}>
           {isLoadingGetUser === false && isDashboard && <DashboardLayout />}
           {isLoadingGetUser === false && !isDashboard && <LandingLayout />}
+          
+          {/* Always */}
+          <MessagesComponent />
         </motion.div>
       )}
 

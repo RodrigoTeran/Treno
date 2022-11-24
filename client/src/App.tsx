@@ -10,6 +10,7 @@ import AnimatedRoutes from './components/Routes/AnimatedRoutes';
 
 // Types
 import { USER } from './types/user.types';
+import { MESSAGE } from './types/messages.types';
 
 // Auth
 import Auth from './components/Auth/Auth';
@@ -25,12 +26,18 @@ interface AppValueProvider {
 
   isLoadingGetUser: boolean;
   setIsLoadingGetUser: Dispatch<SetStateAction<boolean>>;
+
+  messages: Array<MESSAGE>
+  setMessages: Dispatch<SetStateAction<Array<MESSAGE>>>
 }
 
 const App: React.FunctionComponent = (): JSX.Element => {
   const [user, setUser] = useState<USER | null>(null);
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [isLoadingGetUser, setIsLoadingGetUser] = useState<boolean>(true);
+
+  // Messages
+  const [messages, setMessages] = useState<Array<MESSAGE>>([]);
 
   return (
     <HelmetProvider>
@@ -43,6 +50,9 @@ const App: React.FunctionComponent = (): JSX.Element => {
 
           isLoadingGetUser,
           setIsLoadingGetUser,
+
+          messages,
+          setMessages
         }}
       >
         <BrowserRouter>
