@@ -11,6 +11,7 @@ import AnimatedRoutes from './components/Routes/AnimatedRoutes';
 // Types
 import { USER } from './types/user.types';
 import { MESSAGE } from './types/messages.types';
+import { DEVICE } from "./types/devices.types";
 
 // Auth
 import Auth from './components/Auth/Auth';
@@ -32,6 +33,11 @@ interface AppValueProvider {
 
   isModalLink: boolean;
   setIsModalLink: Dispatch<SetStateAction<boolean>>;
+  isModalDevice: boolean;
+  setIsModalDevice: Dispatch<SetStateAction<boolean>>;
+
+  selectedDevice: DEVICE | null;
+  setSelectedDevice: Dispatch<SetStateAction<DEVICE | null>>
 }
 
 const App: React.FunctionComponent = (): JSX.Element => {
@@ -42,8 +48,13 @@ const App: React.FunctionComponent = (): JSX.Element => {
   // Messages
   const [messages, setMessages] = useState<Array<MESSAGE>>([]);
 
+  // State modal
+  const [selectedDevice, setSelectedDevice] = useState<DEVICE | null>(null);
+
+
   // Modals
   const [isModalLink, setIsModalLink] = useState<boolean>(false);
+  const [isModalDevice, setIsModalDevice] = useState<boolean>(false);
 
 
   return (
@@ -62,7 +73,12 @@ const App: React.FunctionComponent = (): JSX.Element => {
           setMessages,
 
           isModalLink,
-          setIsModalLink
+          setIsModalLink,
+          isModalDevice,
+          setIsModalDevice,
+
+          selectedDevice,
+          setSelectedDevice
         }}
       >
         <BrowserRouter>

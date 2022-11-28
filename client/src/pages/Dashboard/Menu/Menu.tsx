@@ -20,7 +20,7 @@ const Cross = () => {
 
 export const LinkDevice = () => {
     const { setMessages, setIsModalLink } = useContext(AppContext);
-    const { setRefetchDevices } = useContext(DashboardLayoutContext);
+    const { socket } = useContext(DashboardLayoutContext);
 
     const [deviceKey, setDeviceKey] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -50,10 +50,13 @@ export const LinkDevice = () => {
                     ])
                 }
 
-                if (!setRefetchDevices) return;
                 if (!setIsModalLink) return;
-                setRefetchDevices(prev => !prev);
                 setIsModalLink(false);
+
+                if (!socket) return;
+                if (!socket.current) return;
+
+                socket.current.emit("get devices");
 
             } catch (error) {
                 setIsLoading(false);
