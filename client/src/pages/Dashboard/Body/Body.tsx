@@ -21,8 +21,13 @@ const Body: React.FunctionComponent = (): JSX.Element => {
         const doFetch = async (): Promise<void> => {
             try {
                 setIsLoading(true);
+                console.log("emit");
                 socket.current?.emit("get devices");
+
+                console.log("on");
                 socket.current?.on("get devices", (resData) => {
+                    console.log("xd");
+
                     setIsLoading(false);
 
                     if (resData.readMsg) {

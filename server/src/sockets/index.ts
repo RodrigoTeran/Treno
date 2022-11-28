@@ -9,6 +9,9 @@ export const manageSocketConnection = (socket: Socket<ClientToServerEvents, Serv
     try {
         const clientId: any = socket.handshake.query.clientId;
         socket.join(clientId);
+        console.log("clientId:", clientId);
+        const rooms: Array<string> = Array.from(socket.rooms);
+        console.log("rooms: ", rooms);
 
         // Get devices
         socket.on("get devices", async () => {
