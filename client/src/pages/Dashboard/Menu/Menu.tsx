@@ -1,7 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from "./Menu.module.scss";
 import { DashboardLayoutContext } from "../../../components/Layout/Dashboard/DashboardLayout";
+import { AppContext } from "../../../App";
 import { Link } from 'react-router-dom';
+import InputText from "../../../components/Form/Input/Input";
+import BtnSpinner from "../../../components/Buttons/Block/Block";
+import { linkDevice, LINK_DEVICE_BODY } from "../../../routes/dashboard.types";
+import { RESPONSE_DATA } from "../../../routes/index.routes";
+import { fetcher, RESPONSE } from "../../../utils/fetcher";
 
 const Cross = () => {
     return (
@@ -12,8 +18,90 @@ const Cross = () => {
     )
 }
 
+export const LinkDevice = () => {
+    const { setMessages, setIsModalLink } = useContext(AppContext);
+    const { setRefetchDevices } = useContext(DashboardLayoutContext);
+
+    const [deviceKey, setDeviceKey] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const linkDeviceFunction = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const doFetch = async (): Promise<void> => {
+            try {
+                const body: LINK_DEVICE_BODY = {
+                    key: deviceKey
+                }
+                setIsLoading(true);
+                const dataFetch: RESPONSE = await fetcher[linkDevice.method]({ uri: linkDevice.url, body });
+                setIsLoading(false);
+                const resData: RESPONSE_DATA = dataFetch.data;
+                setDeviceKey("");
+
+                if (resData.readMsg) {
+                    if (!setMessages) return;
+                    setMessages(prev => [
+                        ...prev, {
+                            type: resData.typeMsg,
+                            msg: resData.message,
+                            index: new Date().getTime() + prev.length
+                        }
+                    ])
+                }
+
+                if (!setRefetchDevices) return;
+                if (!setIsModalLink) return;
+                setRefetchDevices(prev => !prev);
+                setIsModalLink(false);
+
+            } catch (error) {
+                setIsLoading(false);
+                console.error(error);
+                setDeviceKey("");
+                if (!setMessages) return;
+                setMessages(prev => [
+                    ...prev, {
+                        type: "danger",
+                        msg: "Error al obtener los dispositivos.",
+                        index: new Date().getTime() + prev.length
+                    }
+                ])
+            }
+        }
+
+        void doFetch();
+    }
+
+    return (
+        <div className={styles.link}>
+            <div className={styles.link_title}>
+                Enlazar
+            </div>
+            <form onSubmit={linkDeviceFunction} className={styles.link_form}>
+                <InputText
+                    text="Clave del dispositivo"
+                    inputValue={deviceKey}
+                    setInputValue={setDeviceKey}
+                    id="input-new-device"
+                    isRequired
+                    typeInput="text"
+                />
+                <BtnSpinner
+                    family="cyan-500"
+                    text="Enlazar"
+                    role="submit"
+                    attribute='btn-link-device'
+                    isLoading={isLoading}
+                />
+            </form>
+        </div>
+    )
+}
+
 const Menu: React.FunctionComponent = (): JSX.Element => {
     const { hamburgerOpen, setHamburgerOpen } = useContext(DashboardLayoutContext);
+    const { setIsModalLink } = useContext(AppContext);
 
     return (
         <div className={`${styles.menu} ${hamburgerOpen && styles.menu_open}`}>
@@ -23,7 +111,11 @@ const Menu: React.FunctionComponent = (): JSX.Element => {
                 </Link>
             </div>
             <section className={styles.menu_section}>
-                <div>
+                <div onClick={() => {
+                    if (!setIsModalLink) return;
+
+                    setIsModalLink(true);
+                }} className={styles.menu_section_point}>
                     Enlazar
                 </div>
             </section>

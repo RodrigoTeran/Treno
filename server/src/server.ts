@@ -18,4 +18,6 @@ app.use(
 
 // Routes
 import authRoutes from "./routes/auth.routes";
+import dashboardRoutes from "./routes/dashboard.routes";
 app.use("/auth", authRoutes);
+app.use("/dashboard", dashboardRoutes);

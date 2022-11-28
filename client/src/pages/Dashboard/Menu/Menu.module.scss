@@ -27,6 +27,20 @@
 
     &_section {
         padding: 26px;
+
+        &_point {
+            background-color: var(--cyan-600);
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color ease-out 300ms;
+
+            @media (hover:hover) and (pointer:fine) {
+                &:hover {
+                    background-color: var(--cyan-800);
+                }
+            }
+        }
     }
 
     @media screen and (max-width: 1230px) {
@@ -57,5 +71,29 @@
 
     @media screen and (max-width: 330px) {
         display: flex;
+    }
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    &_title {
+        font-size: 2rem;
+        text-align: center;
+        margin: 0 5px;
+        width: 250px;
+    }
+
+    &_form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+    }
+
+    button[extra-css="btn-link-device"] {
+        width: 100%;
     }
 }

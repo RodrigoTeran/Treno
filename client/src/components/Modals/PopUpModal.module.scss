@@ -1,0 +1,56 @@
+.pop {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility ease-out 300ms, opacity ease-out 300ms;
+    padding: 20px;
+
+    &_open {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.card {
+    padding: 50px 20px;
+    min-width: 200px;
+    max-width: 1000px;
+    min-height: 100px;
+    max-height: 700px;
+    overflow-y: auto;
+
+    width: fit-content;
+    background-color: var(--light-000);
+    border-radius: 5px;
+    overflow-x: hidden;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        clip-path: polygon(0 0, 100% 0, 100% 3px, 0 3px);
+        background-color: var(--cyan-700);
+        border-radius: 5px;
+        height: 30px;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
+.cross {
+    fill: var(--light-500);
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+}

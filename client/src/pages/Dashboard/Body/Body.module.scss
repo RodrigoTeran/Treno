@@ -3,7 +3,7 @@
     width: calc(100vw - 250px);
     padding: 26px;
     height: calc(100vh - 80px);
-    
+
     position: fixed;
     top: 80px;
     left: 250px;
@@ -20,4 +20,103 @@
     &_open {
         left: 250px;
     }
+}
+
+.links {
+    &_title {
+        font-weight: bold;
+        font-size: 1.375rem;
+        margin-bottom: 35px;
+
+        span {
+            color: var(--cyan-500);
+            font-size: 1.375rem;
+        }
+    }
+
+    &_grid {
+        display: grid;
+        grid-template-columns: repeat(4, 300px);
+        gap: 30px;
+
+        @media screen and (max-width: 1600px) {
+            grid-template-columns: repeat(3, 300px);
+        }
+
+        @media screen and (max-width: 1010px) {
+            grid-template-columns: repeat(2, 300px);
+        }
+
+        @media screen and (max-width: 680px) {
+            grid-template-columns: repeat(1, 300px);
+        }
+
+        @media screen and (max-width: 350px) {
+            justify-content: center;
+            justify-items: center;
+        }
+    }
+
+    &_card {
+        width: 300px;
+        height: 100px;
+        box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.25);
+        padding: 5px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &_icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                width: 80%;
+                height: 80%;
+                fill: var(--cyan-800);
+            }
+        }
+
+        &_info {
+            width: calc(100% - 100px);
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 0;
+
+            &_name {
+                font-size: 1.375rem;
+            }
+
+            &_go {
+                color: var(--cyan-700);
+                cursor: pointer;
+                width: fit-content;
+
+                @media (hover:hover) and (pointer:fine) {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            width: 90vw;
+        }
+    }
+}
+
+.status {
+    background-color: var(--cyan-200);
+    border-radius: 10px;
+    font-size: 1.375rem;
+    width: fit-content;
+    padding: 10px 20px;
+    margin-bottom: 35px;
 }

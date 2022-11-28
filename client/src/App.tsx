@@ -29,6 +29,9 @@ interface AppValueProvider {
 
   messages: Array<MESSAGE>
   setMessages: Dispatch<SetStateAction<Array<MESSAGE>>>
+
+  isModalLink: boolean;
+  setIsModalLink: Dispatch<SetStateAction<boolean>>;
 }
 
 const App: React.FunctionComponent = (): JSX.Element => {
@@ -38,6 +41,10 @@ const App: React.FunctionComponent = (): JSX.Element => {
 
   // Messages
   const [messages, setMessages] = useState<Array<MESSAGE>>([]);
+
+  // Modals
+  const [isModalLink, setIsModalLink] = useState<boolean>(false);
+
 
   return (
     <HelmetProvider>
@@ -52,7 +59,10 @@ const App: React.FunctionComponent = (): JSX.Element => {
           setIsLoadingGetUser,
 
           messages,
-          setMessages
+          setMessages,
+
+          isModalLink,
+          setIsModalLink
         }}
       >
         <BrowserRouter>
