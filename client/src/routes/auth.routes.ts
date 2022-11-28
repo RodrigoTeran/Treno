@@ -1,4 +1,5 @@
 import { REQUEST } from './index.routes';
+import { USER } from "../types/user.types";
 
 export const getUser: REQUEST = {
     url: `${process.env.REACT_APP_API_URI}/auth/get-user`,
@@ -6,10 +7,7 @@ export const getUser: REQUEST = {
 };
 
 export interface GET_USER_DATA {
-    user: {
-        id: string;
-        username: string
-    }
+    user: USER
 }
 
 export const login: REQUEST = {
@@ -26,3 +24,16 @@ export const logout: REQUEST = {
     url: `${process.env.REACT_APP_API_URI}/auth/log-out`,
     method: 'post',
 };
+
+
+export const signUp: REQUEST = {
+    url: `${process.env.REACT_APP_API_URI}/auth/sign-up`,
+    method: "post",
+};
+
+export interface SIGNUP_BODY {
+    username: string;
+    password: string;
+    confirmPassword: string;
+    deviceKey: string;
+}

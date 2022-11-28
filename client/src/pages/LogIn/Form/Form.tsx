@@ -9,6 +9,7 @@ import { login as loginRoute, LOGIN_BODY } from "../../../routes/auth.routes";
 import { RESPONSE_DATA } from "../../../routes/index.routes";
 import { useAuth } from "../../../hooks/useAuth";
 import { AppContext } from "../../../App";
+import { Link } from "react-router-dom";
 
 const LogInForm: React.FunctionComponent = (): JSX.Element => {
     const [username, setUsername] = useState<string>("");
@@ -108,6 +109,11 @@ const LogInForm: React.FunctionComponent = (): JSX.Element => {
                     />
                 </motion.div>
             </motion.form>
+            <div className={styles.sign_up}>
+                <Link to="/crear-cuenta">
+                    Crear cuenta
+                </Link>
+            </div>
         </div>
     );
 };

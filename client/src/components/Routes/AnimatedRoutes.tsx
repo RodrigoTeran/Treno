@@ -6,6 +6,7 @@ import {routesNoScrollY} from "./config";
 // Pages
 import Home from '../../pages/Home/Home';
 import LogIn from '../../pages/LogIn/LogIn';
+import SignUp from '../../pages/SignUp/SignUp';
 import Dashboard from '../../pages/Dashboard/Dashboard';
 
 // Layout
@@ -31,6 +32,7 @@ const AnimatedRoutes: React.FunctionComponent = (): JSX.Element => {
                 <Route path="/" element={<Layout isDashboard={false} />}>
                     <Route index element={<Home />} />
                     <Route path="iniciar-sesion" element={<LogIn />} />
+                    <Route path="crear-cuenta" element={<SignUp />} />
                 </Route>
                 <Route path="aplicacion" element={<Layout isDashboard />}>
                     <Route index element={<Dashboard />} />

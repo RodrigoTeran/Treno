@@ -23,7 +23,9 @@ const Menu: React.FunctionComponent = (): JSX.Element => {
                 </Link>
             </div>
             <section className={styles.menu_section}>
-                Menu
+                <div>
+                    Enlazar
+                </div>
             </section>
             <div onClick={() => {
                 if (!setHamburgerOpen) return;

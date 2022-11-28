@@ -44,7 +44,8 @@ export const useAuth: USE_AUTH = ({ setUser, setIsAuth }) => {
                 if (setUser != null)
                     setUser({
                         id: userData.user.id,
-                        name: userData.user.username
+                        username: userData.user.username,
+                        profile_img: userData.user.profile_img,
                     });
             }
 

@@ -1,1 +1,1 @@
-export const routesNoScrollY = ["/iniciar-sesion", "/aplicacion"];
+export const routesNoScrollY = ["/iniciar-sesion", "/aplicacion", "/crear-cuenta"];

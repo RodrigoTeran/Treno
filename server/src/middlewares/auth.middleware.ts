@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { RESPONSE_DATA } from "../types/routes.types";
 import { pool } from "../db/index";
 import { USER } from "../types/users.types";
+import { selectClientsById } from "./auth.queries";
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
     const response: RESPONSE_DATA = {
@@ -31,7 +32,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
         const claimId = claims._id;
 
         // User auth
-        const data = await pool.query(`SELECT * FROM users WHERE id = '${claimId}' LIMIT 1;`);
+        const data = await pool.query(selectClientsById(claimId));
         if (data.rowCount === 0) {
             response.message = "Sin sesión";
             return res.status(200).json(response);
