@@ -1,6 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "./Room.module.scss";
 import { AppContext } from "../../../../App";
+import { DashboardLayoutContext } from "../../../../components/Layout/Dashboard/DashboardLayout";
+import { fetcher, RESPONSE } from "../../../../utils/fetcher";
+import { RESPONSE_DATA } from "../../../../routes/index.routes";
+import { BODY_CHANGE_PLACE_DEVICE, updateDevicePlace } from "../../../../routes/dashboard.types";
 
 const AlarmIcon = () => {
     return (
@@ -16,6 +20,25 @@ const SensorIcon = () => {
         <svg width="49" height="44" viewBox="0 0 49 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M24.5 9.07132C20.7515 9.07132 17.6482 9.77735 15.0736 10.8337L7.56846 4.16174L4.68154 6.72815L11.4497 12.7449C6.11479 16.2878 4.21604 21.1265 4.18746 21.2028L3.97308 21.7763L4.18746 22.3499C4.23238 22.4733 8.91596 34.485 24.5 34.485C28.2465 34.485 31.3478 33.7789 33.9223 32.7226L41.4315 39.3982L44.3185 36.8317L37.5463 30.8114C42.8832 27.2685 44.784 22.4297 44.8125 22.3535L45.0269 21.7799L44.8125 21.2064C44.7676 21.083 40.084 9.07132 24.5 9.07132V9.07132ZM24.5878 12.7049H24.5C27.2074 12.7049 29.8039 13.6611 31.7184 15.363C33.6328 17.0648 34.7083 19.3731 34.7083 21.7799C34.698 23.5512 34.0922 25.2793 32.9688 26.7422L31.4968 25.4335C32.2525 24.332 32.6569 23.0684 32.6667 21.7781C32.6667 20.9178 32.4645 20.0993 32.146 19.3297C31.959 19.5268 31.7263 19.6857 31.4637 19.7953C31.2012 19.905 30.9151 19.9628 30.625 19.9649C30.0835 19.9649 29.5642 19.7737 29.1813 19.4333C28.7984 19.093 28.5833 18.6313 28.5833 18.1499C28.5833 17.3532 29.1713 16.6943 29.9758 16.4511C28.4884 15.2182 26.5336 14.5282 24.5 14.5181C22.9994 14.5181 21.6029 14.9138 20.386 15.5563L18.916 14.2495C20.5249 13.2966 22.4216 12.7049 24.5 12.7049H24.4122L24.5 12.7013L24.5878 12.7049ZM8.31775 21.7781C8.52804 21.3516 8.87717 20.7145 9.38146 19.9831L21.3599 30.6317C12.7584 29.4574 9.23446 23.6585 8.31775 21.7781V21.7781ZM27.197 30.6862L11.9254 17.11C12.6685 16.4478 13.4806 15.8498 14.3509 15.324L30.7965 29.9438C29.6284 30.3001 28.4223 30.5489 27.197 30.6862V30.6862Z" fill="#155E75" />
         </svg>
+    )
+}
+
+const AlarmIconDanger = () => {
+    return (
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.9346 7.11087L8.23209 4.38921C1.91667 10.6625 1.91667 15.2088 1.91667 21.0834H3.83334L5.75001 20.9626C5.75001 15.3506 5.75001 12.259 10.9346 7.11087ZM37.766 4.38921L35.0673 7.11087C40.25 12.259 40.25 15.3506 40.25 21.0834L44.0833 20.9626C44.0833 15.2088 44.0833 10.6625 37.766 4.38921ZM23 42.1667C24.187 42.1682 25.345 41.7998 26.3129 41.1129C27.2809 40.4258 28.0108 39.4543 28.4012 38.3334H17.5988C17.9892 39.4543 18.7191 40.4258 19.6871 41.1129C20.655 41.7998 21.813 42.1682 23 42.1667ZM36.4167 27.9565V19.1667C36.4167 13.0008 32.2288 7.80662 26.5554 6.24454C25.9938 4.83004 24.6215 3.83337 23 3.83337C21.3785 3.83337 20.0062 4.83004 19.4446 6.24454C13.7693 7.80662 9.58334 13.0008 9.58334 19.1667V27.9565L6.31159 31.2283C6.13326 31.406 5.99183 31.6172 5.89545 31.8497C5.79907 32.0823 5.74964 32.3316 5.75001 32.5834V34.5C5.75001 35.0084 5.95194 35.4959 6.31138 35.8553C6.67083 36.2148 7.15834 36.4167 7.66667 36.4167H38.3333C38.8417 36.4167 39.3292 36.2148 39.6886 35.8553C40.0481 35.4959 40.25 35.0084 40.25 34.5V32.5834C40.2504 32.3316 40.2009 32.0823 40.1046 31.8497C40.0082 31.6172 39.8668 31.406 39.6884 31.2283L36.4167 27.9565Z" fill="#FF7777" />
+        </svg>
+
+
+    )
+}
+
+const SensorIconDanger = () => {
+    return (
+        <svg width="49" height="44" viewBox="0 0 49 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M48.704 20.5357C44.0906 11.5345 34.9576 5.44434 24.5 5.44434C14.0424 5.44434 4.9068 11.5387 0.296041 20.5365C0.101438 20.9215 4.57764e-05 21.3468 4.57764e-05 21.7781C4.57764e-05 22.2094 0.101438 22.6347 0.296041 23.0197C4.90936 32.0209 14.0424 38.111 24.5 38.111C34.9576 38.111 44.0932 32.0166 48.704 23.0188C48.8986 22.6339 49 22.2086 49 21.7772C49 21.3459 48.8986 20.9206 48.704 20.5357ZM24.5 34.0277C22.0772 34.0277 19.7088 33.3092 17.6943 31.9632C15.6798 30.6171 14.1096 28.7039 13.1825 26.4655C12.2553 24.2271 12.0127 21.7641 12.4854 19.3878C12.958 17.0115 14.1247 14.8288 15.8379 13.1156C17.5511 11.4024 19.7339 10.2357 22.1101 9.76305C24.4864 9.29038 26.9495 9.53297 29.1879 10.4601C31.4263 11.3873 33.3395 12.9574 34.6855 14.9719C36.0315 16.9864 36.75 19.3548 36.75 21.7777C36.7508 23.3866 36.4345 24.9799 35.8191 26.4665C35.2038 27.9531 34.3015 29.3038 33.1638 30.4415C32.0261 31.5791 30.6754 32.4814 29.1888 33.0968C27.7022 33.7121 26.1089 34.0285 24.5 34.0277ZM24.5 13.611C23.7711 13.6212 23.0468 13.7296 22.3469 13.9334C22.9238 14.7175 23.2007 15.6823 23.1273 16.653C23.0539 17.6237 22.635 18.536 21.9466 19.2243C21.2583 19.9127 20.3461 20.3315 19.3754 20.405C18.4047 20.4784 17.4398 20.2015 16.6557 19.6246C16.2093 21.2695 16.2899 23.0129 16.8862 24.6096C17.4825 26.2063 18.5645 27.5758 19.9799 28.5253C21.3953 29.4749 23.0729 29.9566 24.7764 29.9028C26.48 29.849 28.1238 29.2623 29.4765 28.2253C30.8291 27.1884 31.8225 25.7533 32.3169 24.1222C32.8112 22.491 32.7816 20.7459 32.2322 19.1325C31.6828 17.5191 30.6413 16.1185 29.2542 15.1281C27.8672 14.1376 26.2044 13.607 24.5 13.611Z" fill="#FF7777" />
+        </svg>
+
     )
 }
 
@@ -41,7 +64,16 @@ const DogIcon = () => {
 
 export const RoomModal: React.FunctionComponent = (): JSX.Element => {
 
-    const { selectedDevice } = useContext(AppContext);
+    const { selectedDevice, setMessages } = useContext(AppContext);
+    const { socket } = useContext(DashboardLayoutContext);
+    const [devicePlace, setDevicePlace] = useState<string>("");
+
+    useEffect(() => {
+        if (!selectedDevice) return;
+        if (!selectedDevice.place) return;
+
+        setDevicePlace(selectedDevice.place);
+    }, [selectedDevice]);
 
     if (!selectedDevice) return (
         <div>
@@ -49,23 +81,71 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
         </div>
     );
 
+    const changeName = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const doFetch = async () => {
+            try {
+                const body: BODY_CHANGE_PLACE_DEVICE = {
+                    key: selectedDevice.key,
+                    newPlace: devicePlace
+                }
+
+                const resData: RESPONSE = await fetcher[updateDevicePlace.method]({ uri: updateDevicePlace.url, body })
+                const data: RESPONSE_DATA = resData.data;
+
+                if (data.readMsg) {
+                    if (!setMessages) return;
+                    setMessages(prev => [
+                        ...prev, {
+                            type: data.typeMsg,
+                            msg: data.message,
+                            index: new Date().getTime() + prev.length
+                        }
+                    ])
+                }
+
+                // Refetch
+                if (!socket) return;
+                if (!socket.current) return;
+
+                socket.current.emit("get devices");
+                socket.current.emit("get status");
+            } catch (error) {
+                console.error(error);
+                if (!setMessages) return;
+                setMessages(prev => [
+                    ...prev, {
+                        type: "danger",
+                        msg: "Error al cambiar de lugar el dispositivo.",
+                        index: new Date().getTime() + prev.length
+                    }
+                ])
+            }
+        }
+        void doFetch();
+    }
+
     return (
         <div className={styles.room}>
-            <div className={styles.room_block}>
-                
-            </div>
-            <div className={styles.room_title}>
-                {selectedDevice.place}
+            <div className={`${styles.room_block} ${selectedDevice.state && styles.room_block_bad}`}></div>
+            <div className={`${styles.room_title} ${selectedDevice.state && styles.room_title_bad}`}>
+                <form onSubmit={changeName}>
+                    <input type="text" value={devicePlace} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setDevicePlace(e.target.value);
+                    }} />
+                </form>
             </div>
             <div className={styles.room_state_des}>
-                Todo tranquilo por aquí
+                {!selectedDevice.state && "Todo tranquilo por aquí"}
+                {selectedDevice.state && "Tu mascota está de traviesa"}
             </div>
             <div className={styles.room_alarms}>
                 <div>
-                    Estado de la alarma <AlarmIcon />
+                    Estado de la alarma {selectedDevice.state && <AlarmIconDanger />} {!selectedDevice.state && <AlarmIcon />}
                 </div>
                 <div>
-                    Estado del sensor <SensorIcon />
+                    Estado del sensor {selectedDevice.state && <SensorIconDanger />} {!selectedDevice.state && <SensorIcon />}
                 </div>
             </div>
             <div className={styles.room_dog}>

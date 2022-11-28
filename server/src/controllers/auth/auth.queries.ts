@@ -29,3 +29,11 @@ export const addFktoDevice = (client_id: number, key: string) => {
         values: [client_id, key]
     }
 };
+
+export const changePlaceDevice = (place: string, key: string) => {
+    return {
+        name: 'update-place-device',
+        text: 'UPDATE devices SET place = $1 WHERE key = $2;',
+        values: [place, key]
+    }
+};

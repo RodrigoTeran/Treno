@@ -18,3 +18,13 @@ export const linkDevice: REQUEST = {
 export interface LINK_DEVICE_BODY {
     key: string;
 }
+
+export const updateDevicePlace: REQUEST = {
+    url: `${process.env.REACT_APP_API_URI}/dashboard/edit-device-name`,
+    method: "put",
+};
+
+export type BODY_CHANGE_PLACE_DEVICE = {
+    key: string;
+    newPlace: string
+}

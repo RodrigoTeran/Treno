@@ -6,16 +6,27 @@ export interface GET_DEVICES_DATA {
     devices: Array<DEVICE>;
 }
 
-interface RESPONSE_DATA_SOCKET extends RESPONSE_DATA {
+export interface GET_STATUS_DATA {
+    isBehavingBad: boolean,
+    room: DEVICE | null
+}
+
+interface RESPONSE_DATA_SOCKET_GET_DEVICE_DATA extends RESPONSE_DATA {
     data: GET_DEVICES_DATA
+}
+
+interface RESPONSE_DATA_SOCKET_GET_STATUS_DATA extends RESPONSE_DATA {
+    data: GET_STATUS_DATA
 }
 
 // on
 export interface ServerToClientEvents {
-    'get devices': (data: RESPONSE_DATA_SOCKET) => void;
+    'get devices': (data: RESPONSE_DATA_SOCKET_GET_DEVICE_DATA) => void;
+    'get status': (data: RESPONSE_DATA_SOCKET_GET_STATUS_DATA) => void;
 }
 
 // emits
 export interface ClientToServerEvents {
     'get devices': () => void;
+    'get status': () => void;
 }

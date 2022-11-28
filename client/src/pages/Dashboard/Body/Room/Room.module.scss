@@ -4,9 +4,18 @@
     position: relative;
 
     &_title {
-        color: var(--cyan-500);
-        font-size: 2.25rem;
-        font-weight: bold;
+        input {
+            color: var(--cyan-500);
+            font-size: 2.25rem;
+            font-weight: bold;
+
+        }
+
+        &_bad {
+            input {
+                color: var(--red-200);
+            }
+        }
     }
 
     &_state_des {
@@ -129,6 +138,14 @@
             top: -5px;
             z-index: 0;
             right: 5px;
+        }
+
+        &_bad {
+            background-color: var(--red-100);
+
+            &::after {
+                background-color: var(--red-200);
+            }
         }
     }
 

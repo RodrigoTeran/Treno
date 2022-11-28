@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "./Body.module.scss";
 import { DashboardLayoutContext } from "../../../components/Layout/Dashboard/DashboardLayout";
-import { GET_DEVICES_DATA } from "../../../types/socket.types";
+import { GET_DEVICES_DATA, GET_STATUS_DATA } from "../../../types/socket.types";
 import { AppContext } from "../../../App";
 import { DEVICE } from '../../../types/devices.types';
 import Loader from "../../../components/Loader/Loader";
@@ -16,6 +16,8 @@ const Body: React.FunctionComponent = (): JSX.Element => {
     const { hamburgerOpen, setDevices, devices, socket } = useContext(DashboardLayoutContext);
     const { setMessages, setIsModalDevice, setSelectedDevice, user } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isBehavingBad, setIsBehavingBad] = useState<boolean>(true);
+    const [badRoom, setBadRoom] = useState<DEVICE | null>(null);
 
     const getDevices = (): void => {
         if (!socket || !socket.current) {
@@ -31,6 +33,7 @@ const Body: React.FunctionComponent = (): JSX.Element => {
             try {
                 setIsLoading(true);
                 socket.current?.emit("get devices");
+                socket.current?.emit("get status");
 
                 socket.current?.on("get devices", (resData) => {
                     setIsLoading(false);
@@ -50,6 +53,26 @@ const Body: React.FunctionComponent = (): JSX.Element => {
                     const data: GET_DEVICES_DATA = resData.data;
                     if (!setDevices) return;
                     setDevices(data.devices);
+                });
+
+                socket.current?.on("get status", (resData) => {
+                    setIsLoading(false);
+
+                    if (resData.readMsg) {
+                        if (!setMessages) return;
+                        setMessages(prev => [
+                            ...prev, {
+                                type: resData.typeMsg,
+                                msg: resData.message,
+                                index: new Date().getTime() + prev.length
+                            }
+                        ])
+                        return;
+                    }
+
+                    const data: GET_STATUS_DATA = resData.data;
+                    setIsBehavingBad(data.isBehavingBad);
+                    setBadRoom(data.room);
                 });
             } catch (error) {
                 setIsLoading(false);
@@ -83,13 +106,14 @@ const Body: React.FunctionComponent = (): JSX.Element => {
             <div className={styles.links_title}>
                 <span>Habitaciones</span> enlazadas
             </div>
-            <div className={styles.status}>
-                Tu mascota se está comportando muy bien
+            <div className={`${styles.status} ${badRoom && styles.status_bad}`}>
+                {!isBehavingBad && "Tu mascota se está comportando muy bien"}
+                {isBehavingBad && `Tu mascota está jugando en la habitación: ${badRoom?.place}`}
             </div>
             <div className={styles.links_grid}>
                 {devices && devices.map((device: DEVICE, index: number) => {
                     return (
-                        <div key={device.id} className={styles.links_card}>
+                        <div key={device.id} className={`${styles.links_card} ${badRoom?.id === device.id && styles.links_card_bad}`}>
                             <div className={styles.links_card_icon}>
                                 <SofaIcon />
                             </div>

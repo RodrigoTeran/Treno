@@ -106,6 +106,13 @@
             }
         }
 
+        &_bad {
+            * {
+                color: var(--red-200) !important;
+                fill: var(--red-200) !important;
+            }
+        }
+
         @media screen and (max-width: 350px) {
             width: 90vw;
         }
@@ -119,6 +126,10 @@
     width: fit-content;
     padding: 10px 20px;
     margin-bottom: 35px;
+
+    &_bad {
+        background-color: var(--red-100);
+    }
 }
 
 .loader {

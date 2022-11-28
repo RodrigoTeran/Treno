@@ -4,11 +4,12 @@ import express from "express";
 const router = express.Router();
 
 // Controllers
-import { linkDevice } from "../controllers/dashboard/index";
+import { linkDevice, changeDevicePlace } from "../controllers/dashboard/index";
 
 // Middlewares
 import { authenticate } from "../middlewares/auth.middleware";
 
 router.post("/link-device", authenticate, linkDevice);
+router.put("/edit-device-name", authenticate, changeDevicePlace);
 
 export default router;
