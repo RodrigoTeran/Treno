@@ -40,6 +40,5 @@ app.use("/dashboard", dashboardRoutes);
 import { manageSocketConnection } from "./sockets/index";
 
 io.on("connection", (socket: Socket<ClientToServerEvents, ServerToClientEvents>) => {
-  console.log("socket:", socket);
   manageSocketConnection(socket);
 });

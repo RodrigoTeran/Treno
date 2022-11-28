@@ -47,8 +47,6 @@ const DashboardLayout: React.FunctionComponent = (): JSX.Element => {
             clientId
         };
 
-        console.log("connect", query);
-
         socket.current = io(`${stablishConnection}`, {
             query,
         });

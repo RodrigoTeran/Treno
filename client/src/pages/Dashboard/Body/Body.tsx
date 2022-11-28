@@ -4,6 +4,7 @@ import { DashboardLayoutContext } from "../../../components/Layout/Dashboard/Das
 import { GET_DEVICES_DATA } from "../../../types/socket.types";
 import { AppContext } from "../../../App";
 import { DEVICE } from '../../../types/devices.types';
+import Loader from "../../../components/Loader/Loader";
 
 // Icons
 import { SofaIcon } from "./Icons/index";
@@ -14,30 +15,24 @@ var timeout: any;
 const Body: React.FunctionComponent = (): JSX.Element => {
     const { hamburgerOpen, setDevices, devices, socket } = useContext(DashboardLayoutContext);
     const { setMessages, setIsModalDevice, setSelectedDevice, user } = useContext(AppContext);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const getDevices = (): void => {
         if (!socket || !socket.current) {
-            console.log("ring");
             timeout = setTimeout(() => {
                 getDevices();
             }, 500);
 
             return;
         }
-        console.log("finally");
         clearTimeout(timeout);
 
         const doFetch = (): void => {
             try {
                 setIsLoading(true);
-                console.log("emit");
                 socket.current?.emit("get devices");
 
-                console.log("on");
                 socket.current?.on("get devices", (resData) => {
-                    console.log("xd");
-
                     setIsLoading(false);
 
                     if (resData.readMsg) {
@@ -77,9 +72,9 @@ const Body: React.FunctionComponent = (): JSX.Element => {
         // eslint-disable-next-line
     }, [socket?.current, user, socket]);
 
-    if (isLoading) return (
-        <div>
-
+    if (isLoading || socket === null || socket === undefined || socket.current === null || socket.current === undefined) return (
+        <div className={`${styles.body} ${styles.loader}`}>
+            <Loader attribute='loader-devices' />
         </div>
     )
 
@@ -106,8 +101,6 @@ const Body: React.FunctionComponent = (): JSX.Element => {
                                 <div onClick={() => {
                                     if (!setIsModalDevice) return;
                                     if (!setSelectedDevice) return;
-
-                                    console.log("peto");
 
                                     setSelectedDevice(device);
                                     setIsModalDevice(true);

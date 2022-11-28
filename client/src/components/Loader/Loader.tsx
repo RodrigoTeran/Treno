@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './Loader.module.scss';
 
-const Loader: React.FunctionComponent = (): JSX.Element => {
+interface Props {
+    attribute?: string
+}
+
+const Loader: React.FunctionComponent<Props> = ({
+    attribute
+}): JSX.Element => {
     return (
-        <div className={styles.spinner}>
+        <div className={styles.spinner} extra-css={attribute}>
             <div style={{
                 "--delay": "0ms"
             } as React.CSSProperties} className={styles.spinner_block}></div>
@@ -13,7 +19,7 @@ const Loader: React.FunctionComponent = (): JSX.Element => {
             <div style={{
                 "--delay": "120ms"
             } as React.CSSProperties} className={styles.spinner_block}></div>
-            
+
         </div>
     );
 };
