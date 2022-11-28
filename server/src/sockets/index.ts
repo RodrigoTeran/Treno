@@ -21,6 +21,7 @@ export const manageSocketConnection = (socket: Socket<ClientToServerEvents, Serv
             };
             try {
                 const rooms: Array<string> = Array.from(socket.rooms);
+                console.log("rooms: ", rooms);
                 if (rooms.length < 1) return;
 
                 const clientId: number = parseInt(rooms[1]);
