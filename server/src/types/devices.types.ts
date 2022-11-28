@@ -7,3 +7,9 @@ export type DEVICE = {
     state: boolean
     created_at: Date
 }
+
+export type SIGNAL = {
+    id: number;
+    device_key: string;
+    created_at: Date
+}

@@ -13,14 +13,15 @@ CREATE TABLE "devices" (
   "place" TEXT,
   "client_id" INTEGER,
   "state" BOOLEAN,
-  "created_at" TIMESTAMP NOT NULL DEFAULT (now())
+  "created_at" TIMESTAMP NOT NULL DEFAULT (now()),
+  UNIQUE("key")
 );
 
 CREATE TABLE "signals" (
   "id" SERIAL PRIMARY KEY,
-  "device_key" INTEGER,
+  "device_key" TEXT,
   "created_at" TIMESTAMP NOT NULL DEFAULT (now())
 );
 
 ALTER TABLE "devices" ADD FOREIGN KEY ("client_id") REFERENCES "clients" ("id");
-ALTER TABLE "signals" ADD FOREIGN KEY ("device_key") REFERENCES "devices" ("id");
+ALTER TABLE "signals" ADD FOREIGN KEY ("device_key") REFERENCES "devices" ("key");

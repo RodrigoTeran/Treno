@@ -13,3 +13,11 @@ export const getStatusDevices = (client_id: number) => {
         values: [client_id]
     }
 };
+
+export const getLastSignal = (key: string) => {
+    return {
+        name: 'get-last-signal',
+        text: 'SELECT * FROM signals WHERE device_key = $1 ORDER BY created_at LIMIT 1;',
+        values: [key]
+    }
+};

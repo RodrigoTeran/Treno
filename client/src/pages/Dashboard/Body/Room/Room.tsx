@@ -5,6 +5,7 @@ import { DashboardLayoutContext } from "../../../../components/Layout/Dashboard/
 import { fetcher, RESPONSE } from "../../../../utils/fetcher";
 import { RESPONSE_DATA } from "../../../../routes/index.routes";
 import { BODY_CHANGE_PLACE_DEVICE, updateDevicePlace } from "../../../../routes/dashboard.types";
+import { GET_STATS_DATA } from "../../../../types/socket.types"
 
 const AlarmIcon = () => {
     return (
@@ -42,6 +43,27 @@ const SensorIconDanger = () => {
     )
 }
 
+const DogIconDanger = () => {
+    return (
+        <svg width="155" height="146" viewBox="0 0 155 146" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_52_1205" maskUnits="userSpaceOnUse" x="3" y="67" width="152" height="79">
+                <path d="M7.03394 74.0535C7.12359 73.3359 9.28307 72.0945 9.90006 71.7594C12.8403 70.1624 15.3331 68.1902 18.7691 67.6173C22.3764 67.0158 26.4306 67.406 30.0584 67.5217C34.316 67.6575 38.6889 67.6911 42.8604 68.6687C48.5964 70.013 54.4038 71.4068 59.9298 73.464C64.4006 75.1284 68.8091 76.9287 73.2732 78.6576C77.7532 80.3927 82.0097 82.5305 86.5528 84.1539C94.07 86.84 101.961 88.0422 109.928 88.3278C122.219 88.7686 135.914 89.4198 147.092 83.5485C148.843 82.6283 150.757 81.351 152.188 79.7463L154.066 76.6343C153.685 77.7777 153.017 78.8169 152.188 79.7463L113.181 144.4H59.9298L18.7691 145.92L3.03839 98.7999L7.03394 74.0535Z" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_52_1205)">
+                <path d="M79.8787 49.2754L85.5109 15.4661C85.9741 12.6872 88.3879 10.6396 91.2161 10.6396C93.0448 10.6396 94.7515 11.4928 95.8486 12.9554L99.9691 18.4399H112.672C115.768 18.4399 118.743 19.6831 120.937 21.8769L125.326 26.2402H138.98C142.222 26.2402 144.831 28.8484 144.831 32.0904V37.9406C144.831 48.7147 136.103 57.4413 125.326 57.4413H117.524H113.623H108.43L107.186 64.8759L79.8787 49.2754ZM105.821 73.0662V127.644C105.821 131.958 102.334 135.444 98.0186 135.444H90.2165C85.901 135.444 82.4144 131.958 82.4144 127.644V99.5627C76.5628 102.561 69.9311 104.243 62.9092 104.243C55.8873 104.243 49.2555 102.561 43.4039 99.5627V127.644C43.4039 131.958 39.9174 135.444 35.6019 135.444H27.7998C23.4842 135.444 19.9977 131.958 19.9977 127.644V71.5305C12.9758 68.8735 7.46555 62.9258 5.56379 55.3206L4.63729 51.5423C3.58889 47.3741 6.12457 43.1327 10.3182 42.0845C14.5118 41.0363 18.7298 43.5714 19.7782 47.7641L20.7291 51.5423C21.5825 55.0037 24.7033 57.4413 28.2874 57.4413H35.6019H39.5029H78.4646L105.821 73.0662ZM117.524 30.1403C117.524 27.9953 115.768 26.2402 113.623 26.2402C111.477 26.2402 109.722 27.9953 109.722 30.1403C109.722 32.2854 111.477 34.0405 113.623 34.0405C115.768 34.0405 117.524 32.2854 117.524 30.1403Z" fill="#FFB4B4" />
+            </g>
+            <mask id="mask1_52_1205" maskUnits="userSpaceOnUse" x="0" y="0" width="155" height="89">
+                <path d="M9.90009 71.8558C9.2831 72.1909 7.12362 73.4323 7.03397 74.1499L0 35.2133L49.6274 32.9333L89.6332 0L154.066 14.1867V76.7307C153.027 79.848 149.858 82.1917 147.092 83.6449C135.914 89.5162 122.219 88.865 109.928 88.4242C101.961 88.1385 94.07 86.9363 86.5529 84.2503C82.0097 82.6268 77.7532 80.4891 73.2732 78.754C68.8092 77.0251 64.4006 75.2248 59.9298 73.5604C54.4038 71.5032 48.5964 70.1094 42.8605 68.7651C38.689 67.7875 34.316 67.7539 30.0585 67.6181C26.4307 67.5024 22.3764 67.1121 18.7691 67.7137C15.3332 68.2866 12.8404 70.2588 9.90009 71.8558Z" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask1_52_1205)">
+                <path d="M79.8787 49.2754L85.5109 15.4661C85.9741 12.6872 88.3879 10.6396 91.2162 10.6396C93.0448 10.6396 94.7515 11.4928 95.8487 12.9554L99.9691 18.4399H112.672C115.768 18.4399 118.743 19.6831 120.937 21.8769L125.326 26.2402H138.98C142.222 26.2402 144.831 28.8484 144.831 32.0904V37.9406C144.831 48.7147 136.103 57.4413 125.326 57.4413H117.524H113.623H108.43L107.186 64.8759L79.8787 49.2754ZM105.821 73.0662V127.644C105.821 131.958 102.334 135.444 98.0186 135.444H90.2165C85.901 135.444 82.4144 131.958 82.4144 127.644V99.5627C76.5629 102.561 69.9311 104.243 62.9092 104.243C55.8873 104.243 49.2555 102.561 43.404 99.5627V127.644C43.404 131.958 39.9174 135.444 35.6019 135.444H27.7998C23.4842 135.444 19.9977 131.958 19.9977 127.644V71.5305C12.9758 68.8735 7.46557 62.9258 5.56381 55.3206L4.63731 51.5423C3.58891 47.3741 6.12459 43.1327 10.3182 42.0845C14.5118 41.0363 18.7298 43.5714 19.7783 47.7641L20.7291 51.5423C21.5825 55.0037 24.7033 57.4413 28.2874 57.4413H35.6019H39.5029H78.4646L105.821 73.0662ZM117.524 30.1403C117.524 27.9953 115.768 26.2402 113.623 26.2402C111.477 26.2402 109.722 27.9953 109.722 30.1403C109.722 32.2854 111.477 34.0405 113.623 34.0405C115.768 34.0405 117.524 32.2854 117.524 30.1403Z" fill="#FFB4B4" />
+            </g>
+        </svg>
+
+
+    )
+}
+
 const DogIcon = () => {
     return (
         <svg width="155" height="146" viewBox="0 0 155 146" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,6 +89,7 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
     const { selectedDevice, setMessages } = useContext(AppContext);
     const { socket } = useContext(DashboardLayoutContext);
     const [devicePlace, setDevicePlace] = useState<string>("");
+    const [statDays, setStatDays] = useState<number>(0);
 
     useEffect(() => {
         if (!selectedDevice) return;
@@ -74,6 +97,46 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
 
         setDevicePlace(selectedDevice.place);
     }, [selectedDevice]);
+
+    const getLastDay = (data: GET_STATS_DATA): number => {
+        if (data.lastSignal === null) return 0;
+
+        const currDate: Date = new Date();
+
+        let difference = currDate.getTime() - data.lastSignal.created_at.getTime();
+        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+        return TotalDays;
+    }
+
+    const getStats = () => {
+        if (!socket) return;
+        if (!socket.current) return;
+        if (!selectedDevice) return;
+
+        socket.current.emit("get stats", selectedDevice.key);
+
+        socket.current.on("get stats", (resData) => {
+            if (resData.readMsg) {
+                if (!setMessages) return;
+                setMessages(prev => [
+                    ...prev, {
+                        type: resData.typeMsg,
+                        msg: resData.message,
+                        index: new Date().getTime() + prev.length
+                    }
+                ])
+                return;
+            };
+
+            const data: GET_STATS_DATA = resData.data;
+            setStatDays(getLastDay(data))
+        });
+    }
+
+    useEffect(() => {
+        getStats();
+        // eslint-disable-next-line
+    }, [socket, socket?.current]);
 
     if (!selectedDevice) return (
         <div>
@@ -153,8 +216,8 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
             </div>
             <div className={styles.room_stats}>
                 <div className={styles.room_stats_left}>
-                    <div className={styles.room_stats_left_days}>
-                        4
+                    <div className={`${styles.room_stats_left_days} ${selectedDevice.state && styles.room_stats_left_days_bad}`}>
+                        {statDays}
                     </div>
                     <div className={styles.room_stats_left_stat}>
                         días consecutivos
@@ -162,9 +225,11 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
                 </div>
                 <div className={styles.room_stats_right}>
                     <div className={styles.room_stats_right_icon}>
-                        <DogIcon />
+
+                        {selectedDevice.state && <DogIconDanger />}
+                        {!selectedDevice.state && <DogIcon />}
                     </div>
-                    <div className={styles.room_stats_right_stat}>
+                    <div className={`${styles.room_stats_right_stat} ${selectedDevice.state && styles.room_stats_right_stat_bad}`}>
                         60%
                     </div>
                 </div>

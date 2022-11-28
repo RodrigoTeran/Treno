@@ -1,4 +1,4 @@
-import { DEVICE } from "../../types/devices.types";
+import { DEVICE, SIGNAL } from "../../types/devices.types";
 
 export type BODY_LINK_DEVICE = {
     key: string;
@@ -16,4 +16,9 @@ export type DATA_GET_DEVICES = {
 export type DATA_GET_STATUS = {
     isBehavingBad: boolean,
     room: DEVICE | null
+}
+
+export type DATA_GET_STATS = {
+    lastSignal: SIGNAL | null,
+    percentagePet: number
 }

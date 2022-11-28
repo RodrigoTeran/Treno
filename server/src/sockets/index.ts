@@ -2,9 +2,9 @@ import { ServerToClientEvents, ClientToServerEvents } from "../types/socket.type
 import { Socket } from "socket.io";
 import { RESPONSE_DATA } from "../types/routes.types";
 import { pool } from "../db/index";
-import { selectDevicesByClientId, getStatusDevices } from "../controllers/dashboard/dashboard.queries";
-import { DATA_GET_DEVICES, DATA_GET_STATUS } from "../controllers/dashboard/dashboard.types";
-import { DEVICE } from "../types/devices.types";
+import { selectDevicesByClientId, getStatusDevices, getLastSignal } from "../controllers/dashboard/dashboard.queries";
+import { DATA_GET_DEVICES, DATA_GET_STATUS, DATA_GET_STATS } from "../controllers/dashboard/dashboard.types";
+import { DEVICE, SIGNAL } from "../types/devices.types";
 
 export const manageSocketConnection = (socket: Socket<ClientToServerEvents, ServerToClientEvents>) => {
     try {
@@ -93,50 +93,48 @@ export const manageSocketConnection = (socket: Socket<ClientToServerEvents, Serv
             }
         });
 
-        // // Get status
-        // socket.on("get stats", async () => {
-        //     const response: RESPONSE_DATA = {
-        //         isAuth: false,
-        //         message: "",
-        //         readMsg: true,
-        //         typeMsg: "danger",
-        //         data: null
-        //     };
-        //     try {
-        //         const rooms: Array<string> = Array.from(socket.rooms);
-        //         if (rooms.length < 1) return;
+        // Get stats from signals
+        socket.on("get stats", async (key: string) => {
+            const response: RESPONSE_DATA = {
+                isAuth: false,
+                message: "",
+                readMsg: true,
+                typeMsg: "danger",
+                data: null
+            };
+            try {
+                if (!key) return;
 
-        //         const clientId: number = parseInt(rooms[1]);
+                key = key.toString();
+                if (key.trim() === "") return;
+                const dataLastSignal = await pool.query(getLastSignal(key));
+                let lastSignal: SIGNAL | null = null;
 
-        //         const dataResponse = await pool.query(getStatusDevices(clientId));
-        //         const isBehavingBad: boolean = dataResponse.rows.length > 0;
+                if (dataLastSignal.rows.length > 0) {
+                    lastSignal = dataLastSignal.rows[0];
+                };
 
-        //         let room: DEVICE | null = null;
-        //         if (isBehavingBad) {
-        //             room = dataResponse.rows[0];
-        //         }
+                const data: DATA_GET_STATS = {
+                    lastSignal,
+                    percentagePet: 0
+                };
 
-        //         const data: DATA_GET_STATUS = {
-        //             isBehavingBad,
-        //             room
-        //         };
+                response.data = data;
 
-        //         response.data = data;
+                // All fine
+                response.readMsg = false;
+                response.typeMsg = "success";
+                response.isAuth = true;
+                response.message = "";
 
-        //         // All fine
-        //         response.readMsg = false;
-        //         response.typeMsg = "success";
-        //         response.isAuth = true;
-        //         response.message = "";
+                socket.emit("get stats", response)
 
-        //         socket.emit("get status", response)
-
-        //     } catch (error) {
-        //         console.error(error);
-        //         response.message = "Error del servidor."
-        //         socket.emit("get status", response)
-        //     }
-        // });
+            } catch (error) {
+                console.error(error);
+                response.message = "Error del servidor."
+                socket.emit("get stats", response)
+            }
+        });
     } catch (error) {
         console.error(error);
     }

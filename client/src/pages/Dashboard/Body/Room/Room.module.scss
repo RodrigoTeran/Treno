@@ -69,6 +69,10 @@
                 background-color: var(--cyan-400);
                 font-size: 2.5rem;
                 border-radius: 50%;
+
+                &_bad {
+                    background-color: var(--red-200);
+                }
             }
 
             &_stat {
@@ -86,6 +90,11 @@
                 font-size: 5.3rem;
                 color: var(--cyan-500);
                 font-weight: bold;
+
+
+                &_bad {
+                    color: var(--red-200);
+                }
             }
         }
 
