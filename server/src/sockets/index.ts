@@ -15,6 +15,7 @@ export const manageSocketConnection = (socket: Socket<ClientToServerEvents, Serv
 
         // Get devices
         socket.on("get devices", async () => {
+            console.log("super ON");
             const response: RESPONSE_DATA = {
                 isAuth: false,
                 message: "",

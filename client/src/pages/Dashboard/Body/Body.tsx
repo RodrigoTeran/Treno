@@ -8,6 +8,8 @@ import { DEVICE } from '../../../types/devices.types';
 // Icons
 import { SofaIcon } from "./Icons/index";
 
+var timeout: any;
+
 
 const Body: React.FunctionComponent = (): JSX.Element => {
     const { hamburgerOpen, setDevices, devices, socket } = useContext(DashboardLayoutContext);
@@ -15,9 +17,16 @@ const Body: React.FunctionComponent = (): JSX.Element => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getDevices = (): void => {
-        console.log("socket:", socket);
-        if (!socket) return;
-        if (!socket.current) return;
+        if (!socket || !socket.current) {
+            console.log("ring");
+            timeout = setTimeout(() => {
+                getDevices();
+            }, 500);
+
+            return;
+        }
+        console.log("finally");
+        clearTimeout(timeout);
 
         const doFetch = (): void => {
             try {
@@ -66,7 +75,7 @@ const Body: React.FunctionComponent = (): JSX.Element => {
     useEffect(() => {
         getDevices();
         // eslint-disable-next-line
-    }, [socket?.current, user]);
+    }, [socket?.current, user, socket]);
 
     if (isLoading) return (
         <div>
