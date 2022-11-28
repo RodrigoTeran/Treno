@@ -11,14 +11,15 @@ import { SofaIcon } from "./Icons/index";
 
 const Body: React.FunctionComponent = (): JSX.Element => {
     const { hamburgerOpen, setDevices, devices, socket } = useContext(DashboardLayoutContext);
-    const { setMessages, setIsModalDevice, setSelectedDevice } = useContext(AppContext);
+    const { setMessages, setIsModalDevice, setSelectedDevice, user } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getDevices = (): void => {
+        console.log("socket:", socket);
         if (!socket) return;
         if (!socket.current) return;
 
-        const doFetch = async (): Promise<void> => {
+        const doFetch = (): void => {
             try {
                 setIsLoading(true);
                 console.log("emit");
@@ -65,7 +66,7 @@ const Body: React.FunctionComponent = (): JSX.Element => {
     useEffect(() => {
         getDevices();
         // eslint-disable-next-line
-    }, [socket]);
+    }, [socket?.current, user]);
 
     if (isLoading) return (
         <div>
