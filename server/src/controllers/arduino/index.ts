@@ -4,9 +4,15 @@ import { updateStatusDeviceByKey } from "../dashboard/dashboard.queries";
 import { selectDevicesByKey, selectClientById } from "../auth/auth.queries";
 import { DEVICE } from "../../types/devices.types";
 
-export const createSignal = async (req: Request, _: Response) => {
+export const createSignal = async (req: Request, res: Response) => {
     try {
         console.log("llegó xd")
+        res.json({
+            msg: "xd"
+        });
+        return;
+
+        
         const { key }: any = req.params;
         if (!key) return;
         if (key.trim() === "") return;
