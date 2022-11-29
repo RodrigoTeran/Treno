@@ -21,3 +21,18 @@ export const getLastSignal = (key: string) => {
         values: [key]
     }
 };
+
+export const getAllDevices = () => {
+    return {
+        name: 'get-all-devices',
+        text: 'SELECT * FROM devices;',
+    }
+};
+
+export const updateStatusDeviceByKey = (key: string, status: boolean) => {
+    return {
+        name: 'update-device-status-by-key',
+        text: 'UPDATE devices SET state = $1 WHERE key = $2;',
+        values: [status, key]
+    }
+};

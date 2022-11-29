@@ -37,3 +37,11 @@ export const changePlaceDevice = (place: string, key: string) => {
         values: [place, key]
     }
 };
+
+export const selectClientById = (id: number) => {
+    return {
+        name: 'get-client-by-id',
+        text: 'SELECT * FROM clients WHERE id = $1 LIMIT 1;',
+        values: [id]
+    }
+};
