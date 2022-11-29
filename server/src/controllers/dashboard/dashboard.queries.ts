@@ -36,3 +36,11 @@ export const updateStatusDeviceByKey = (key: string, status: boolean) => {
         values: [status, key]
     }
 };
+
+export const insertSignal = (key: string) => {
+    return {
+        name: 'insert-signal',
+        text: 'INSERT INTO signals(device_key) VALUES($1);',
+        values: [key]
+    }
+};

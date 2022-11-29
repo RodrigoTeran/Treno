@@ -9,7 +9,7 @@ import { DEVICE, SIGNAL } from "../types/devices.types";
 export const manageSocketConnection = (socket: Socket<ClientToServerEvents, ServerToClientEvents>) => {
     try {
         const clientId: any = socket.handshake.query.clientId;
-        socket.join(clientId);
+        socket.join(clientId.toString());
 
         // Get devices
         socket.on("get devices", async () => {

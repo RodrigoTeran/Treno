@@ -6,6 +6,6 @@ const router = express.Router();
 // Controllers
 import { createSignal } from "../controllers/arduino/index";
 
-router.post("/signal/:key", createSignal);
+router.get("/signal/:key", createSignal);
 
 export default router;
