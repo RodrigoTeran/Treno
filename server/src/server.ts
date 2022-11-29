@@ -33,8 +33,10 @@ app.use(
 // Routes
 import authRoutes from "./routes/auth.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
+import arduinoRoutes from "./routes/arduino.routes";
 app.use("/auth", authRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/arduino", arduinoRoutes);
 
 // Socket Io
 import { manageSocketConnection } from "./sockets/index";
