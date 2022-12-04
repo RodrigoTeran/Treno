@@ -230,7 +230,7 @@ export const RoomModal: React.FunctionComponent = (): JSX.Element => {
                         {!selectedDevice.state && <DogIcon />}
                     </div>
                     <div className={`${styles.room_stats_right_stat} ${selectedDevice.state && styles.room_stats_right_stat_bad}`}>
-                        60%
+                        0%
                     </div>
                 </div>
             </div>
