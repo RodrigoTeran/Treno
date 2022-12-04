@@ -12,8 +12,8 @@ const Header: React.FunctionComponent = (): JSX.Element => {
                 </div>
                 <p>El mejor entrenador de mascotas virtual ahora en tus manos</p>
                 <div className={styles.header_left_btns_container}>
-                    <Btn attribute='btn-header' text='Lorem ipsum' family="cyan-500" callback={() => { }} />
-                    <Btn attribute='btn-header' text='Lorem ipsum' family="light-000" callback={() => { }} />
+                    <Btn attribute='btn-header' text='Contáctanos' family="cyan-500" callback={() => { }} />
+                    <Btn attribute='btn-header' text='Producto' family="light-000" callback={() => { }} />
                 </div>
             </div>
             <img src="svgs/dog.svg" alt="" />
